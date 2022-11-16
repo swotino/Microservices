@@ -5,7 +5,7 @@ This is a first sample to adopt Jenkins
 Tools:
 - vagrant
 - jenkins
-- python
+- Spring Boot
 
 ```
 sudo apt update
