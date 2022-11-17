@@ -11,10 +11,20 @@ Vagrant.configure("2") do |config|
     end
 
     ### SonarQuebe VM ###
-    config.vm.define "sonarquebe" do |j|
+    config.vm.define "sonarqube" do |j|
         j.vm.box = "jharoian3/ubuntu-22.04-arm64"
-        j.vm.hostname = "sonarquebe"
+        j.vm.hostname = "sonarqube"
         j.vm.network "private_network", ip: "192.168.10.101"
+        j.vm.provider :parallels do |vmw|
+            vmw.memory = "2048"
+        end
+    end
+
+    ### Nexus VM ###
+    config.vm.define "nexus" do |j|
+        j.vm.box = "jharoian3/ubuntu-22.04-arm64"
+        j.vm.hostname = "nexus"
+        j.vm.network "private_network", ip: "192.168.10.102"
         j.vm.provider :parallels do |vmw|
             vmw.memory = "2048"
         end
