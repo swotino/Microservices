@@ -2,6 +2,14 @@ pipeline {
     agent any
     
     environment {
+        NEXUS_USER = 'admin'
+        NEXUS_PASS = 'admin123'
+        NEXUS_URL = '192.168.10.102'
+        NEXUS_PORT = '8081'
+        NEXUS_SNAPSHOT = 'jenkins-springrest-snapshot'
+        NEXUS_RELEASE = 'jenkins-springrest'
+        NEXUS_CENTRAL = 'jenkins-nexus-central'
+        NEXUS_GROUP = 'jenkins-nexus-group'
         SONAR_SERVER = 'SonarQube Server'
         SONAR_SCANNER = 'SonarQubeScanner'
     }
@@ -74,10 +82,10 @@ pipeline {
                 nexusArtifactUploader {
                     nexusVersion: 'nexus3',
                     protocol: 'http',
-                    nexusUrl: 'http://192.168.10.102:8081',
+                    nexusUrl: "http://${NEXUS_URL}:${NEXUS_PORT}",
                     groupId: 'QA',
                     version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
-                    repository: 'jenkins-springrest-snapshot',
+                    repository: "${NEXUS_SNAPSHOT}",
                     credentials: 'nexus-login'
                     artifacts: [
                         [ artifactId: 'springrest', classifier: '', file: 'SpringRest/target/SpringRest-0.0.1-SNAPSHOT.jar', type: 'jar' ]

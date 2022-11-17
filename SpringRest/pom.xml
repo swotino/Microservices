@@ -50,9 +50,9 @@
 
     <repositories>
         <repository>
-            <id>${NEXUS-GROUP}</id>
+            <id>${NEXUS_GROUP}</id>
             <!--suppress UnresolvedMavenProperty -->
-            <url>http://${NEXUS-URL}:${NEXUS-PORT}/repository/${NEXUS-GROUP}/</url>
+            <url>http://${NEXUS_URL}:${NEXUS_PORT}/repository/${NEXUS_GROUP}/</url>
         </repository>
     </repositories>
 

@@ -5,36 +5,36 @@
 
     <servers>
         <server>
-            <id>${NEXUS-SNAPSHOT}</id>
-            <username>${NEXUS-USER}</username>
-            <password>${NEXUS-PASS}</password>
+            <id>${NEXUS_SNAPSHOT}</id>
+            <username>${NEXUS_USER}</username>
+            <password>${NEXUS_PASS}</password>
         </server>
 
         <server>
-            <id>${NEXUS-RELEASE}</id>
-            <username>${NEXUS-USER}</username>
-            <password>${NEXUS-PASS}</password>
+            <id>${NEXUS_RELEASE}</id>
+            <username>${NEXUS_USER}</username>
+            <password>${NEXUS_PASS}</password>
         </server>
 
         <server>
-            <id>${NEXUS-CENTRAL}</id>
-            <username>${NEXUS-USER}</username>
-            <password>${NEXUS-PASS}</password>
+            <id>${NEXUS_CENTRAL}</id>
+            <username>${NEXUS_USER}</username>
+            <password>${NEXUS_PASS}</password>
         </server>
 
         <server>
-            <id>${NEXUS-GROUP}</id>
-            <username>${NEXUS-USER}</username>
-            <password>${NEXUS-PASS}</password>
+            <id>${NEXUS_GROUP}</id>
+            <username>${NEXUS_USER}</username>
+            <password>${NEXUS_PASS}</password>
         </server>
 
     </servers>
 
     <mirrors>
         <mirror>
-            <id>${NEXUS-CENTRAL}</id>
-            <name>${NEXUS-CENTRAL}</name>
-            <url>http://${NEXUS-URL}:${NEXUS-PORT}/repository/${NEXUS-GROUP}</url>
+            <id>${NEXUS_CENTRAL}</id>
+            <name>${NEXUS_CENTRAL}</name>
+            <url>http://${NEXUS_URL}:${NEXUS_PORT}/repository/${NEXUS_GROUP}</url>
             <mirrorOf>*</mirrorOf>
         </mirror>
     </mirrors>
