@@ -77,7 +77,7 @@ pipeline {
                     nexusUrl: 'http://192.168.10.102:8081',
                     groupId: 'QA',
                     version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
-                    repository: 'jenkins-springrest',
+                    repository: 'jenkins-springrest-snapshot',
                     credentials: 'nexus-login'
                     artifacts: [
                         [ artifactId: 'springrest', classifier: '', file: 'SpringRest/target/SpringRest-0.0.1-SNAPSHOT.jar', type: 'jar' ]

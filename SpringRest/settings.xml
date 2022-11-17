@@ -5,10 +5,38 @@
 
     <servers>
         <server>
-            <id>jenkins-springrest-snapshot</id>
-            <username>admin</username>
-            <password>admin123</password>
+            <id>${NEXUS-SNAPSHOT}</id>
+            <username>${NEXUS-USER}</username>
+            <password>${NEXUS-PASS}</password>
         </server>
+
+        <server>
+            <id>${NEXUS-RELEASE}</id>
+            <username>${NEXUS-USER}</username>
+            <password>${NEXUS-PASS}</password>
+        </server>
+
+        <server>
+            <id>${NEXUS-CENTRAL}</id>
+            <username>${NEXUS-USER}</username>
+            <password>${NEXUS-PASS}</password>
+        </server>
+
+        <server>
+            <id>${NEXUS-GROUP}</id>
+            <username>${NEXUS-USER}</username>
+            <password>${NEXUS-PASS}</password>
+        </server>
+
     </servers>
+
+    <mirrors>
+        <mirror>
+            <id>${NEXUS-CENTRAL}</id>
+            <name>${NEXUS-CENTRAL}</name>
+            <url>http://${NEXUS-URL}:${NEXUS-PORT}/repository/${NEXUS-GROUP}</url>
+            <mirrorOf>*</mirrorOf>
+        </mirror>
+    </mirrors>
 
 </settings>

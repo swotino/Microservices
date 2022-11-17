@@ -50,8 +50,9 @@
 
     <repositories>
         <repository>
-            <id>jenkins-springrest-snapshot</id>
-            <url>http://192.168.10.102:8081/repository/jenkins-springrest-snapshot/</url>
+            <id>${NEXUS-GROUP}</id>
+            <!--suppress UnresolvedMavenProperty -->
+            <url>http://${NEXUS-URL}:${NEXUS-PORT}/repository/${NEXUS-GROUP}/</url>
         </repository>
     </repositories>
 
