@@ -7,15 +7,19 @@ Tools:
 - jenkins
 - Spring Boot
 
-Jenkins
+## Jenkins
+I seguenti script consentono l'installazione di Jenkins su Linux Debian
 
 ```
+# Installiamo i tools necessari (Java - Maven - Git - wget)
 sudo apt update
 sudo apt install openjdk-8-jdk maven git wget -y
 
+# Aggiungiamo prima i repository di Jenkins
 curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
 echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
 
+# Installiamo Jenkins
 sudo apt update
 sudo apt install jenkins -y
 ```
