@@ -1,9 +1,12 @@
 pipeline {
     agent any
+
+    tools {
+        maven "Maven3"
+    }
     
     environment {
-        NEXUS_USER = 'admin'
-        NEXUS_PASS = 'admin123'
+        NEXUS_CREDENTIAL = 'nexuslogin'
         NEXUS_URL = '192.168.10.102'
         NEXUS_PORT = '8081'
         NEXUS_SNAPSHOT = 'jenkins-springrest-snapshot'
@@ -24,15 +27,14 @@ pipeline {
         
         stage('Build') {
             steps {
-                sh 'mvn -f SpringRest/pom.xml clean'
-                sh 'mvn -f SpringRest/pom.xml install -DskipTest'
+                sh 'mvn -s SpringRest/settings.xml -f SpringRest/pom.xml clean install -DskipTests'
             }
         }
         
         stage('Test') {
             steps {
-                sh 'mvn -f SpringRest/pom.xml test'
-                sh 'mvn -f SpringRest/pom.xml checkstyle:checkstyle'
+                sh 'mvn -s SpringRest/settings.xml -f SpringRest/pom.xml verify -DskipTests'
+                sh 'mvn -s SpringRest/settings.xml -f SpringRest/pom.xml checkstyle:checkstyle'
             }
         }
         
@@ -50,14 +52,10 @@ pipeline {
                     -Dsonar.java.binaries=SpringRest/target/test-classes/com/microservices/rest/springrest/ \
                     -Dsonar.java.checkstyle.reportPaths=SpringRest/target/checkstyle-result.xml'''
                 }
-            }
-        }
-        
-        stage('Quality Gate') {
-            steps {
+
                 timeout(time: 1, unit: 'HOURS') {
                     waitForQualityGate abortPipeline: true
-                }   
+                }
             }
         }
         
@@ -71,7 +69,7 @@ pipeline {
             post {
                 success {
                     echo "Archiving artifact"
-                    archiveArtifacts artifacts: 'SpringRest/target/*.jar'
+                    archiveArtifacts artifacts: 'versions/*.jar'
                 }
             }
         }
@@ -79,18 +77,18 @@ pipeline {
         stage('Upload to Nexus') {
 
             steps {
-                nexusArtifactUploader {
+                nexusArtifactUploader (
                     nexusVersion: 'nexus3',
                     protocol: 'http',
-                    nexusUrl: "http://${NEXUS_URL}:${NEXUS_PORT}",
-                    groupId: 'QA',
-                    version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
-                    repository: "${NEXUS_SNAPSHOT}",
-                    credentials: 'nexus-login'
+                    nexusUrl: "${NEXUS_URL}:${NEXUS_PORT}",
+                    groupId: NEXUS_GROUP,
+                    version: "${env.BUILD_ID}_${env.BUILD_TIMESTAMP}",
+                    repository: NEXUS_RELEASE,
+                    credentialsId: NEXUS_CREDENTIAL,
                     artifacts: [
                         [ artifactId: 'springrest', classifier: '', file: 'SpringRest/target/SpringRest-0.0.1-SNAPSHOT.jar', type: 'jar' ]
                     ]
-                }
+                )
             }
         }
     }
