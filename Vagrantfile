@@ -1,10 +1,14 @@
-$jenkinsScript = <<-SCRIPT
+$dockerScript = <<-SCRIPT
 apt update
-apt install openjdk-8-jdk maven git wget -y
-curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
-echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+apt install ca-certificates curl gnupg lsb-release -y
+mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+chmod a+r /etc/apt/keyrings/docker.gpg
 apt update
-apt install jenkins -y
+apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
 SCRIPT
 
 Vagrant.configure("2") do |config|
@@ -39,14 +43,14 @@ Vagrant.configure("2") do |config|
         end
     end
 
-    ### Jenkins2 VM ###
-    #config.vm.define "jen" do |j|
-    #    j.vm.box = "jharoian3/ubuntu-22.04-arm64"
-    #    j.vm.hostname = "jen"
-    #    j.vm.network "private_network", ip: "192.168.10.110"
-    #    j.vm.provider :parallels do |vmw|
-    #        vmw.memory = "2048"
-    #    end
-    #    j.vm.provision "shell", inline: $jenkinsScript 
-    #end
+    ### Docker VM ###
+    config.vm.define "docker" do |d|
+        d.vm.box = "jharoian3/ubuntu-22.04-arm64"
+        d.vm.hostname = "docker"
+        d.vm.network "private_network", ip: "192.168.10.110"
+        d.vm.provider :parallels do |vmw|
+            vmw.memory = "2048"
+        end
+        d.vm.provision "shell", inline: $dockerScript
+    end
 end
