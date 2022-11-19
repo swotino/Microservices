@@ -85,11 +85,9 @@ pipeline {
 
             steps {
                 script {
-                    pom = readMavenPom file: "SpringRest/pom.xml";
-                    filesByGlob = findFiles(glob: "SpringRest/target/*.${pom.packaging}");
-
-                    artifactPath = filesByGlob[0].path;
+                    artifactPath = "versions/springrest-v${env.BUILD_ID}.jar";
                     artifactExists = fileExists artifactPath;
+                    echo "*** Check if exists the artifact ${artifactPath}: ${artifactExists}";
                     if(artifactExists) {
                         nexusArtifactUploader (
                             nexusVersion: 'nexus3',
@@ -100,7 +98,7 @@ pipeline {
                             repository: NEXUS_RELEASE,
                             credentialsId: NEXUS_CREDENTIAL,
                             artifacts: [
-                                [ artifactId: pom.artifactId, classifier: '', file: artifactPath, type: pom.packaging ]
+                                [ artifactId: "springrest", classifier: '', file: artifactPath, type: "jar" ]
                             ]
                         );
                     }
