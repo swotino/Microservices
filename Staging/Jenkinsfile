@@ -109,10 +109,26 @@ pipeline {
             }
         }
 
+        stage('Docker Build & Push') {
+            steps {
+                script {
+                    withDockerServer('tcp://192.168.10.110:9090') {
+                        dockerImage = docker.build("swotino/microservices", "./Docker/");
+                    }
+
+                    docker.withRegistry('https://index.docker.io/v1/', dockerhub) {
+                        dockerImage.push(BUILD_NUMBER)
+                        dockerImage.push("latest")
+                    }
+                }
+            }
+        }
+
+/*
         stage('Docker Build') {
             steps {
                 script {
-                    sh "docker build -t swotino/microservices:latest ./Docker"
+                    sh "docker build --no-cache -t swotino/microservices:latest ./Docker"
                 }
             }
         }
@@ -127,6 +143,7 @@ pipeline {
                 }
             }
         }
+        */
 
         /*
         stage('Build app image') {
