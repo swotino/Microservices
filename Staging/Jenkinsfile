@@ -114,11 +114,11 @@ pipeline {
                 script {
                     withDockerServer('tcp://192.168.10.110:9090') {
                         dockerImage = docker.build("swotino/microservices", "./Docker/");
-                    }
 
-                    docker.withRegistry('https://index.docker.io/v1/', dockerhub) {
-                        dockerImage.push(BUILD_NUMBER)
-                        dockerImage.push("latest")
+                        docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
+                            dockerImage.push(BUILD_NUMBER)
+                            dockerImage.push("latest")
+                        }
                     }
                 }
             }
