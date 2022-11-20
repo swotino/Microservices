@@ -119,6 +119,10 @@ pipeline {
                             dockerImage.push(BUILD_NUMBER)
                             dockerImage.push("latest")
                         }
+
+                        docker.image('swotino/microservices').withRun('-p 9100:9100 -n mservices') {
+
+                        }
                     }
                 }
             }
