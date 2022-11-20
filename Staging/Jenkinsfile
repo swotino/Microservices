@@ -108,6 +108,49 @@ pipeline {
                 }
             }
         }
+
+        stage('Docker Build') {
+            steps {
+                script {
+                    sh 'docker build -t microservices/springrest ./Docker'
+                }
+            }
+        }
+
+        stage('Docker Upload') {
+            steps {
+                script {
+                    withCredentials([ string(credentialsId: 'DockerHub', variable: 'dockerpwd') ]) {
+                        sh "docker login -u swotino -p ${dockerpwd}"
+                    }
+                    sh 'docker push microservices/springrest'
+                }
+            }
+        }
+
+        /*
+        stage('Build app image') {
+            steps {
+                script {
+                    dockerImage = docker.build(
+                        "app registry",
+                        "./Docker/"
+                    );
+                }
+            }
+        }
+
+        stage('Upload docker image') {
+            steps {
+                script {
+                    docker.withRegistry() {
+                        dockerImage.push(BUILD_NUMBER)
+                        dockerImage.push("latest")
+                    }
+                }
+            }
+        }
+        */
     }
 
     post {
