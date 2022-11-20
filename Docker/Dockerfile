@@ -10,4 +10,4 @@ RUN curl -L -G 'http://192.168.10.102:8081/service/rest/v1/search/assets/downloa
     -d maven.extension=jar \
     -o artifact.jar
 ENTRYPOINT java -jar artifact.jar
-EXPOSE 9090:9090
+EXPOSE 9100
