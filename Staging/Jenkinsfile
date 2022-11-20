@@ -112,7 +112,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    sh 'docker build -t swotino/microservices ./Docker'
+                    sh "docker build -t swotino/microservices:${env.BUILD_NUMBER} ./Docker"
                 }
             }
         }
@@ -123,7 +123,6 @@ pipeline {
                     withCredentials([ string(credentialsId: 'DockerHub', variable: 'dockerpwd') ]) {
                         sh "docker login -u swotino -p ${dockerpwd}"
                     }
-                    sh "docker tag v${BUILD_NUMBER} swotino/microservices"
                     sh "docker push swotino/microservices"
                 }
             }
