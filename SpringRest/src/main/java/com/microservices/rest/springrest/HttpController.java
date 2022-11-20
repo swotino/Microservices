@@ -10,6 +10,7 @@ public class HttpController {
 
     @GetMapping("hello")
     public String helloWorld() {
+        System.out.println("Richiesta ricevuta");
         return "Hello World!";
     }
 }
