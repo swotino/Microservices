@@ -120,7 +120,7 @@ pipeline {
                             dockerImage.push("latest")
                         }
 
-                        docker.image('swotino/microservices').withRun('-p 9100:9100 -n mservices') {
+                        docker.image('swotino/microservices').withRun('-p 9100:9100 --name mservices') {
 
                         }
                     }
