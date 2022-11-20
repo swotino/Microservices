@@ -112,7 +112,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    sh "docker build -t swotino/microservices:${env.BUILD_NUMBER} ./Docker"
+                    sh "docker build -t swotino/microservices:v${env.BUILD_NUMBER} ./Docker"
                 }
             }
         }
