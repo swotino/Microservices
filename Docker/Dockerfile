@@ -1,5 +1,5 @@
 FROM debian
-RUN apt update && apt git install maven openjdk-11-jdk -y
+RUN apt update && apt install git maven openjdk-11-jdk -y
 RUN mkdir -p app
 RUN cd app/
 RUN git clone -b cicd-jenkins https://github.com/swotino/Microservices.git
