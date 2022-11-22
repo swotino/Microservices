@@ -24,15 +24,12 @@ sudo apt update
 sudo apt install jenkins -y
 ```
 
-SonarQube
+## SonarQube
 
 ```
 sudo apt update
-## Java
-sudo apt install openjdk-11-jdk -y
-
-## Unzip
-sudo apt install zip -y
+## Java & zip
+apt install openjdk-11-jdk zip -y
 
 ## PostgreSQL
 # Create the file repository configuration
@@ -40,13 +37,13 @@ sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)
 # Import the repository signin key
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 # Install postgresql
-sudo apt update
-sudo apt -y install postgresql
+apt update
+apt install -y postgresql
 # Enable service
-sudo systemctl enable postgresql
+systemctl enable postgresql
 
 # Config PostgreSQL SonarQube user
-sudo echo "postgres:admin123" | chpasswd
+echo "postgres:admin123" | chpasswd
 runuser -l postgres -c "createuser sonar"
 sudo -i -u postgres psql -c "ALTER USER sonar WITH ENCRYPTED PASSWORD 'admin123';"
 sudo -i -u postgres psql -c "CREATE DATABASE sonarqube OWNER sonar;"
@@ -137,7 +134,7 @@ systemctl enable nginx.service
 sudo ufw allow 80,9000,9001/tcp
 ```
 
-Nexus
+## Nexus
 
 ```
 sudo apt update
