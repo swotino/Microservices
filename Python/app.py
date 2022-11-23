@@ -16,23 +16,32 @@ def div(a, b):
     return a / b
 
 
+@app.route("/")
+def index():
+    return "Mammeta works!"
+
 @app.route("/calculate")
-def calculate():
-    args = request.args
-    if len(args) == 3:
-        cmd = args.get("cmd")
-        if 'add' in cmd:
-            return add(float(args.get("a")), float(args.get("b")))
-        elif 'sub' in cmd:
-            return sub(float(args.get("a")), float(args.get("b")))
-        elif 'mul' in cmd:
-            return mul(float(args.get("a")), float(args.get("b")))
-        elif 'div' in cmd:
-            return div(float(args.get("a")), float(args.get("b")))
+def calculate() -> str: 
+    print(request.args)
+    try:
+        cmd = request.args.get("cmd")
+        a = request.args.get("a")
+        b = request.args.get("b")
+        if cmd and a and b:
+            if 'add' in cmd:
+                return str(add(float(a), float(b)))
+            elif 'sub' in cmd:
+                return str(sub(float(a), float(b)))
+            elif 'mul' in cmd:
+                return str(mul(float(a), float(b)))
+            elif 'div' in cmd:
+                return str(div(float(a), float(b)))
+            else:
+                return "Unknown command"
         else:
-            return "Unknown command"
-    else:
-        return "Wrong command"
+            return "Wrong command"
+    except Exception as error:
+        print(error)
 
 try:
     if __name__ == '__main__':
