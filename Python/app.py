@@ -20,15 +20,15 @@ def div(a, b):
 def calculate():
     args = request.args
     if len(args) == 3:
-        cmd = args[0]
+        cmd = args.get("cmd")
         if 'add' in cmd:
-            return add(float(args[1]), float(args[2]))
+            return add(float(args.get("a")), float(args.get("b")))
         elif 'sub' in cmd:
-            return sub(float(args[1]), float(args[2]))
+            return sub(float(args.get("a")), float(args.get("b")))
         elif 'mul' in cmd:
-            return mul(float(args[1]), float(args[2]))
+            return mul(float(args.get("a")), float(args.get("b")))
         elif 'div' in cmd:
-            return div(float(args[1]), float(args[2]))
+            return div(float(args.get("a")), float(args.get("b")))
         else:
             return "Unknown command"
     else:
