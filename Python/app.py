@@ -42,6 +42,7 @@ def calculate() -> str:
             return "Wrong command"
     except Exception as error:
         print(error)
+        return "Error"
 
 try:
     if __name__ == '__main__':
