@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-app
+  labels:
+    app: kubeapp
+spec:
+  selector:
+    matchLabels:
+      app: kubeapp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kubeapp
+    spec:
+      containers:
+      - name: app
+        image: swotino/microservices-app
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 9090
+        env:
+          - name: DB_HOST
+            value: kube-db-service.default.svc.cluster.local
+          - name: DB_PORT
+            value: "3306"
+          - name: DB_USER
+            value: "root"
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: app-secret
+                key: db-pass

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-db
+  labels:
+    app: kubedb
+spec:
+  selector:
+    matchLabels:
+      app: kubedb
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kubedb
+    spec:
+      containers:
+      - name: db
+        image: swotino/microservices-db
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: app-secret
+                key: db-pass

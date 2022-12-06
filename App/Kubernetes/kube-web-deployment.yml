@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-web
+  labels:
+    app: kubeweb
+spec:
+  selector:
+    matchLabels:
+      app: kubeweb
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kubeweb
+    spec:
+      containers:
+      - name: web
+        image: swotino/microservices-web
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+        lifecycle:
+          postStart:
+            exec:
+              command: [ "/bin/sh", "-c", "echo \"const HOST='192.168.10.200';\nconst PORT=31013;\" > /usr/share/nginx/html/config.js" ]
