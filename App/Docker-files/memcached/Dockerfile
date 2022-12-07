@@ -1,0 +1,2 @@
+# memcached container
+FROM memcached

@@ -1,0 +1,57 @@
+version: '3.9'
+services:
+  microservices-web:
+    image: swotino/microservices-web
+    hostname: web
+    container_name: web
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    networks:
+      - mynet
+
+  microservices-app:
+    image: swotino/microservices-app
+    hostname: app
+    container_name: app
+    build:
+      context: ./app-with-cache
+      dockerfile: Dockerfile
+    ports:
+      - 9090:9090
+    networks:
+      - mynet
+
+  microservices-cache:
+    image: swotino/microservices-cache
+    hostname: cache
+    container_name: cache
+    build:
+      context: ./memcached
+      dockerfile: Dockerfile
+    ports:
+      - 11211:11211
+    networks:
+      - mynet
+
+  microservices-db:
+    image: swotino/microservices-db
+    hostname: db
+    container_name: db
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    ports:
+      - 3306:3306
+    networks:
+      - mynet
+
+networks:
+  mynet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.100.0/24

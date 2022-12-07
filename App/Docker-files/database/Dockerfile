@@ -1,4 +1,4 @@
-FROM mysql:8.0.20
+FROM mysql
 LABEL "Project"="Microservices"
 LABEL "Author"="Leonardo D'Errico"
 
