@@ -19,6 +19,3 @@ sudo apt-get install -y jenkins
 
 # Install Git
 sudo apt-get install -y git
-
-# Install Maven
-sudo apt-get install -y maven
