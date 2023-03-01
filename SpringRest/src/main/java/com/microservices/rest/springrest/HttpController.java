@@ -10,6 +10,6 @@ public class HttpController {
 
     @GetMapping("hello")
     public String helloWorld() {
-        return "Hello World!";
+        return 1;
     }
 }
