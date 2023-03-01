@@ -4,11 +4,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.ArrayList;
-
-import java.lang.Thread;
-import java.lang.Runnable;
+//import java.util.List;
+//import java.util.ArrayList;
 
 @RestController
 @RequestMapping("api/")
@@ -16,6 +13,7 @@ public class HttpController {
 
     @GetMapping("hello")
     public String helloWorld() {
+        /*
         try {
             var a = new int[2];
             a[3] = 1;
@@ -32,6 +30,7 @@ public class HttpController {
                 }
             }
         }).start();
+        */
         
         
         return "Hello World!";
