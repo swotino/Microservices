@@ -13,14 +13,14 @@ public class HttpController {
 
     @GetMapping("hello")
     public String helloWorld() {
-        /*
         try {
-            var a = new int[2];
+            int[] a = new int[2];
             a[3] = 1;
         } catch(Exception e) {
             e.printStackTrace();
         }
         
+        /*
         List<String> list = new ArrayList<String>();
         
         new Thread(new Runnable() {
