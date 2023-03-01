@@ -11,8 +11,8 @@ public class HttpController {
     @GetMapping("hello")
     public String helloWorld() {
         
-        String test = "Demo";
-        test =+ " Mario";
+        int test = 9;
+        test =+ 10;
         System.out.println(test);
         
         return "Hello World!";
