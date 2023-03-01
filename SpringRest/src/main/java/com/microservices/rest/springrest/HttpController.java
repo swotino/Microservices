@@ -26,7 +26,7 @@ public class HttpController {
         List<String> list = new ArrayList<String>();
         
         new Thread(new Runnable() {
-            public run() {
+            public void run() {
                 for(String s : list) {
                     System.out.println(s);
                 }
