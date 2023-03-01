@@ -11,9 +11,8 @@ public class HttpController {
     @GetMapping("hello")
     public String helloWorld() {
         
-        while(true){
-            
-        }
+        var a = new int[2];
+        a[3] = 1;
         
         return "Hello World!";
     }
