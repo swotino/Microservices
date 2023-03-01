@@ -13,6 +13,7 @@ public class HttpController {
 
     @GetMapping("hello")
     public String helloWorld() {
+        /*
         try {
             int[] a = new int[2];
             a[3] = 1;
@@ -20,7 +21,7 @@ public class HttpController {
             e.printStackTrace();
         }
         
-        /*
+        
         List<String> list = new ArrayList<String>();
         
         new Thread(new Runnable() {
@@ -31,8 +32,6 @@ public class HttpController {
             }
         }).start();
         */
-        
-        
         return "Hello World!";
     }
 }
