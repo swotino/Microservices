@@ -10,6 +10,11 @@ public class HttpController {
 
     @GetMapping("hello")
     public String helloWorld() {
-        return 1;
+        
+        while(true){
+            
+        }
+        
+        return "Hello World!";
     }
 }
