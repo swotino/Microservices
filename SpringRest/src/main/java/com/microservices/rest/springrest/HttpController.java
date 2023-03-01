@@ -10,10 +10,12 @@ public class HttpController {
 
     @GetMapping("hello")
     public String helloWorld() {
-        
-        var a = new int[2];
-        a[3] = 1;
-        
+        try {
+            var a = new int[2];
+            a[3] = 1;
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         return "Hello World!";
     }
 }
