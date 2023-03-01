@@ -4,6 +4,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.ArrayList;
+
+import java.lang.Thread;
+import java.lang.Runnable;
+
 @RestController
 @RequestMapping("api/")
 public class HttpController {
@@ -16,6 +22,18 @@ public class HttpController {
         } catch(Exception e) {
             e.printStackTrace();
         }
+        
+        List<String> list = new ArrayList<String>();
+        
+        new Thread(new Runnable() {
+            public run() {
+                for(String s : list) {
+                    System.out.println(s);
+                }
+            }
+        }).start();
+        
+        
         return "Hello World!";
     }
 }
