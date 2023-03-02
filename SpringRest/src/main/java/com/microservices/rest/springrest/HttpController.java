@@ -10,11 +10,11 @@ public class HttpController {
 
     @GetMapping("hello")
     public String helloWorld() {
-        /*
+        
         int test = 9;
         test =+ 10;
         System.out.println(test);
-        */
+        
         return "Hello World!";
     }
 }
